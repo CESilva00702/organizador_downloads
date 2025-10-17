@@ -1,5 +1,7 @@
 # PR: Organizador - CLI, logging, safe-move, backup/rollback e testes
 
+> Nota: o upload de cobertura para o Codecov é opcional e só ocorre se o segredo `CODECOV_TOKEN` estiver configurado no repositório. O workflow continuará passando mesmo sem esse segredo.
+
 ## Resumo
 - Adiciona suporte completo de CLI ao script `organizador_downloads.py` (flags para path, dry-run, verbose, backup e logging).
 - Implementa renomeação segura (`safe_move`) com modos de sufixo `counter` e `timestamp`.
