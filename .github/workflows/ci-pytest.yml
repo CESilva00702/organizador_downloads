@@ -34,13 +34,20 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements-dev.txt ]; then
             pip install -r requirements-dev.txt
+            pip install pytest-cov
           else
-            pip install pytest pyfakefs
+            pip install pytest pyfakefs pytest-cov
           fi
 
       - name: Run tests
         run: |
-          pytest -q tests
+          pytest --cov=. --cov-report=xml:coverage.xml -q tests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   test-windows:
     name: Run tests (Windows)
@@ -69,10 +76,17 @@ jobs:
           python -m pip install --upgrade pip
           if exist requirements-dev.txt (
             pip install -r requirements-dev.txt
+            pip install pytest-cov
           ) else (
-            pip install pytest pyfakefs
+            pip install pytest pyfakefs pytest-cov
           )
 
       - name: Run tests
         run: |
-          py -3 -m pytest -q tests
+          py -3 -m pytest --cov=. --cov-report=xml:coverage.xml -q tests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
