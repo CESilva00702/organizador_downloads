@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Autounattend - Basic
+  Template: use as starting point for an unattended Windows install.
+  IMPORTANT: Replace placeholder values (ImagePath, ProductKey, UserPassword) before use.
+  This file intentionally does NOT contain passwords or secrets.
+-->
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+  <settings pass="windowsPE">
+    <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <!-- Specify the image to apply (WIM/ESD) -->
+      <ImageInstall>
+        <OSImage>
+          <InstallFrom>
+            <!-- Replace with your install source or remove to use default media -->
+            <MetaData>
+              <Key>/IMAGE/NAME</Key>
+              <Value>Windows 10 Pro</Value>
+            </MetaData>
+          </InstallFrom>
+          <!-- ImageIndex or ImageName can be set here -->
+        </OSImage>
+      </ImageInstall>
+
+      <!-- Disk configuration: defaults to use entire disk (clear and create partitions) -->
+      <DiskConfiguration>
+        <Disk wcm:action="add" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+          <DiskID>0</DiskID>
+          <WillWipeDisk>true</WillWipeDisk>
+          <CreatePartitions>
+            <CreatePartition>
+              <Order>1</Order>
+              <Type>Primary</Type>
+              <Size>100</Size>
+            </CreatePartition>
+            <CreatePartition>
+              <Order>2</Order>
+              <Type>Primary</Type>
+              <Extend>true</Extend>
+            </CreatePartition>
+          </CreatePartitions>
+        </Disk>
+        <WillShowUI>OnError</WillShowUI>
+      </DiskConfiguration>
+
+      <!-- Accept EULA automatically -->
+      <UserData>
+        <AcceptEula>true</AcceptEula>
+        <FullName>PC User</FullName>
+        <Organization>Organization</Organization>
+        <!-- If using a product key, set it here or leave blank to enter later -->
+        <ProductKey></ProductKey>
+      </UserData>
+    </component>
+  </settings>
+
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <!-- Create a local user: password must be provided by the operator or replaced prior to use -->
+      <UserAccounts>
+        <LocalAccounts>
+          <LocalAccount wcm:action="add" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <Name>localuser</Name>
+            <DisplayName>Local User</DisplayName>
+            <!-- Password is intentionally left empty; replace with a secure method -->
+            <Password>
+              <Value></Value>
+              <PlainText>true</PlainText>
+            </Password>
+            <Group>Administrators</Group>
+          </LocalAccount>
+        </LocalAccounts>
+      </UserAccounts>
+      <ComputerName>WIN-BASIC</ComputerName>
+    </component>
+  </settings>
+
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <InputLocale>en-US</InputLocale>
+      <SystemLocale>en-US</SystemLocale>
+      <UILanguage>en-US</UILanguage>
+      <UserLocale>en-US</UserLocale>
+    </component>
+
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+        <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+        <ProtectYourPC>3</ProtectYourPC>
+      </OOBE>
+      <AutoLogon>
+        <Password>
+          <Value></Value>
+          <PlainText>true</PlainText>
+        </Password>
+        <Username>localuser</Username>
+        <Enabled>false</Enabled>
+      </AutoLogon>
+      <RegisteredOrganization>Organization</RegisteredOrganization>
+      <RegisteredOwner>Owner</RegisteredOwner>
+    </component>
+  </settings>
+
+  <cpi:offlineImage cpi:source="wim:c:/sources/install.wim#Windows 10 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
