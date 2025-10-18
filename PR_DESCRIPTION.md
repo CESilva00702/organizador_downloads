@@ -1,5 +1,7 @@
 # PR: Organizador - CLI, logging, safe-move, backup/rollback e testes
 
+> Nota: o upload de cobertura para o Codecov é opcional e só ocorre se o segredo `CODECOV_TOKEN` estiver configurado no repositório. O workflow continuará passando mesmo sem esse segredo.
+
 ## Resumo
 - Adiciona suporte completo de CLI ao script `organizador_downloads.py` (flags para path, dry-run, verbose, backup e logging).
 - Implementa renomeação segura (`safe_move`) com modos de sufixo `counter` e `timestamp`.
@@ -59,3 +61,18 @@ python .\tools\rollback.py --operations-log D:\Downloads\test_organizer\backup\o
 - Adicionar CI (GitHub Actions) para rodar os testes automaticamente.
 - Fazer a migração para um package/CLI se necessário.
 - Tornar rollback mais robusto (retries/locks).
+
+## Integração Codecov (opcional)
+
+O workflow inclui um passo opcional para enviar relatórios de cobertura para o Codecov. Isso é útil para visualizar a cobertura de testes em um serviço dedicado, mas não é obrigatório para o funcionamento do CI.
+
+Como habilitar o upload para o Codecov:
+
+1. Crie uma conta no Codecov (https://codecov.io/) e adicione o repositório `CESilva00702/organizador_downloads`.
+2. Gere um token de upload (Codecov upload token) nas configurações do seu repositório no Codecov.
+3. No GitHub, vá em `Settings -> Secrets -> Actions` do repositório `organizador_downloads` e crie um segredo chamado `CODECOV_TOKEN` com o valor do token gerado.
+4. Depois do push, o workflow irá executar e, se o segredo estiver definido, o passo de upload será executado automaticamente e você verá os relatórios no painel do Codecov.
+
+Observações:
+- O workflow foi escrito para não falhar caso o segredo `CODECOV_TOKEN` não exista (o step de upload é condicional). Isso facilita execução em forks e ambientes sem token.
+- Se preferir não usar Codecov, não é necessário definir o segredo — os testes e a geração de coverage ainda rodam.

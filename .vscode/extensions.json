@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.isort",
+    "ms-python.black-formatter",
+    "ms-toolsai.jupyter",
+    "riancho.vscode-tidy-imports",
+    "eamodio.gitlens",
+    "ms-vscode.cpptools"
+  ]
+}

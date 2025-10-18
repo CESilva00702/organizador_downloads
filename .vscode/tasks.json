@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run tests",
+      "type": "shell",
+      "command": "py -3 -m pytest -q tests",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run organizer (dry-run)",
+      "type": "shell",
+      "command": "py -3 organizador_downloads.py --path \"${workspaceFolder}\test_organizer\" --dry-run --verbose",
+      "group": "none",
+      "problemMatcher": []
+    }
+  ]
+}
