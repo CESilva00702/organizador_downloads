@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Debug organizer",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/organizador_downloads.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--path",
+        "${workspaceFolder}/test_organizer",
+        "--dry-run",
+        "--verbose"
+      ]
+    }
+  ]
+}
